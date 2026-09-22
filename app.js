@@ -391,14 +391,13 @@ function initMap() {
     attributionControl: false,
   });
 
-  // Standard OpenStreetMap tiles — free, keyless, no usage cap for small apps.
-  // Dark look is faked with a CSS filter on #map (see style.css) since OSM has no native dark style.
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+  // Stadia Maps "Alidade Smooth Dark" — free tier (200k loads/month, no card), authenticated via API key.
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=7bcb2e18-d43d-47f5-8023-1edc61259d22', {
+    maxZoom: 20,
   }).addTo(map);
 
-  // Attribution
-  L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap contributors' }).addTo(map);
+  // Attribution (Stadia requires this to stay visible per their free-tier terms)
+  L.control.attribution({ position: 'bottomright', prefix: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors' }).addTo(map);
 
   // Draw danger zones
   drawDangerZones();
