@@ -359,8 +359,6 @@ let activeFilter = 'all';
 let showHeatmap = true;
 let showZones = true;
 let showMarkers = true;
-let showTraffic = false;
-let trafficLayer;
 let alertIdCounter = 0;
 
 // ============================================
@@ -393,20 +391,14 @@ function initMap() {
     attributionControl: false,
   });
 
-  // Dark map tiles
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  // Standard OpenStreetMap tiles — free, keyless, no usage cap for small apps.
+  // Dark look is faked with a CSS filter on #map (see style.css) since OSM has no native dark style.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    subdomains: 'abcd',
   }).addTo(map);
 
-  // Initialize traffic layer (but don't add to map yet)
-  trafficLayer = L.tileLayer('https://mt1.google.com/vt?lyrs=h,traffic&x={x}&y={y}&z={z}', {
-    maxZoom: 19,
-    attribution: 'Traffic data © Google'
-  });
-
   // Attribution
-  L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap · CartoDB' }).addTo(map);
+  L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap contributors' }).addTo(map);
 
   // Draw danger zones
   drawDangerZones();
@@ -520,13 +512,6 @@ function toggleHeatmap() {
   document.getElementById('btn-heatmap').classList.toggle('active', showHeatmap);
   if (showHeatmap) map.addLayer(heatLayer);
   else map.removeLayer(heatLayer);
-}
-
-function toggleTraffic() {
-  showTraffic = !showTraffic;
-  document.getElementById('btn-traffic').classList.toggle('active', showTraffic);
-  if (showTraffic) map.addLayer(trafficLayer);
-  else map.removeLayer(trafficLayer);
 }
 
 function toggleZones() {

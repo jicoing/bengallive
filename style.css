@@ -274,6 +274,19 @@ h1, h2, h3, h4 {
   z-index: 1;
 }
 
+/* Fake a dark basemap using free OpenStreetMap tiles (no dark style available without a paid key) */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+}
+
+/* Un-invert anything drawn on top of the tiles so colors stay correct */
+.leaflet-marker-icon,
+.leaflet-popup,
+.incident-marker,
+.leaflet-control-attribution {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 /* Map overlay controls */
 .map-overlay {
   position: absolute;
